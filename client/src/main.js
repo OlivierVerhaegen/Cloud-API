@@ -3,7 +3,14 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-Vue.config.productionTip = false
+import Vuesax from 'vuesax';
+import 'vuesax/dist/vuesax.css';
+
+import 'boxicons'
+
+Vue.config.productionTip = false;
+
+Vue.use(Vuesax);
 
 new Vue({
   router,

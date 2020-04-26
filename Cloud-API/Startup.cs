@@ -34,6 +34,13 @@ namespace Cloud_API
                 .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
 
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
             // De validatie zal gebeuren maar er wordt niet direct een error gegeven eerst wordt de action in de controller aangeroepen.
             // Nu moeten we wel zelf de modelstate checken in de controller.
             //services.Configure<ApiBehaviorOptions>(options =>
@@ -52,6 +59,8 @@ namespace Cloud_API
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors("MyPolicy");
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -62,6 +71,8 @@ namespace Cloud_API
             {
                 endpoints.MapControllers();
             });
+
+            
 
             DatabaseInitializer.Initialize(context);
         }
