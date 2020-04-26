@@ -9,6 +9,8 @@ namespace Cloud_API
 
         public DbSet<BodyPart> BodyParts { get; set; }
 
+        public DbSet<BodyPartExercise> BodyPartExercises { get; set; }
+
         public DbSet<User> Users { get; set; }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)

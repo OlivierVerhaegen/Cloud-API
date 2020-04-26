@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Cloud_API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Cloud_API.Controllers
@@ -27,7 +28,7 @@ namespace Cloud_API.Controllers
             if (limit > 20)
                 return BadRequest("Limit must be smaller then 20");
 
-            IQueryable<Exercise> queryResult = context.Exercises;
+            IQueryable<Exercise> queryResult = context.Exercises.Include(e => e.TargetParts);
 
             if (!string.IsNullOrWhiteSpace(name))
                 queryResult = queryResult.Where(e => e.Name == name);
@@ -62,7 +63,9 @@ namespace Cloud_API.Controllers
         [HttpGet("{id}")]
         public ActionResult<Exercise> Get(int id)
         {
-            Exercise e = context.Exercises.Find(id);
+            Exercise e = context.Exercises
+                .Include(e => e.TargetParts)
+                .Single(e => e.Id == id);
 
             if (e == null)
                 return NotFound();
@@ -103,9 +106,13 @@ namespace Cloud_API.Controllers
         public IActionResult Delete(int id)
         {
             Exercise exerciseToDelete = context.Exercises.Find(id);
+            IEnumerable<BodyPartExercise> bpesToRemove = context.BodyPartExercises.Where(bpe => bpe.BodyPartId == id);
 
             if (exerciseToDelete == null)
                 return NotFound();
+
+            if (bpesToRemove != null && bpesToRemove.Any())
+                context.BodyPartExercises.RemoveRange(bpesToRemove);
 
             context.Exercises.Remove(exerciseToDelete);
             context.SaveChanges();

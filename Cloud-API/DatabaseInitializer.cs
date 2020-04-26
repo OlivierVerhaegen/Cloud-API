@@ -12,9 +12,10 @@ namespace Cloud_API
         {
             context.Database.EnsureCreated();
 
-            // Default Lichaamsdelen aanmaken.
-            if (!context.BodyParts.Any())
+            // Default Lichaamsdelen en oefeningen aanmaken.
+            if (!context.BodyParts.Any() && !context.Exercises.Any())
             {
+                // Bodyparts.
                 BodyPart bicep = new BodyPart()
                 {
                     Name = "Bicep",
@@ -41,16 +42,22 @@ namespace Cloud_API
                 };
 
                 context.BodyParts.Add(buikspieren);
-            }
 
-            // Default oefeningen aanmaken.
-            if (!context.Exercises.Any())
-            {
+                // Exercises.
                 Exercise squat = new Exercise()
                 {
                     Name = "Squat",
                     Description = "Trainen van de beenspieren...",
-                    VideoUrl = "https://www.youtube.com/watch?v=U3HlEF_E9fo"
+                    VideoUrl = "https://www.youtube.com/watch?v=U3HlEF_E9fo",
+                };
+
+                squat.TargetParts = new List<BodyPartExercise>
+                {
+                    new BodyPartExercise
+                    {
+                        BodyPart = bilspier,
+                        Exercise = squat,
+                    }
                 };
 
                 context.Exercises.Add(squat);
@@ -62,6 +69,15 @@ namespace Cloud_API
                     VideoUrl = "https://www.youtube.com/watch?v=jDwoBqPH0jk"
                 };
 
+                sitUp.TargetParts = new List<BodyPartExercise>
+                {
+                    new BodyPartExercise
+                    {
+                        BodyPart = buikspieren,
+                        Exercise = sitUp
+                    }
+                };
+
                 context.Exercises.Add(sitUp);
 
                 Exercise barbellCurl = new Exercise()
@@ -69,6 +85,15 @@ namespace Cloud_API
                     Name = "Barbel Curl",
                     Description = "Trainen van de bicep ...",
                     VideoUrl = "https://www.youtube.com/watch?v=ykJmrZ5v0Oo"
+                };
+
+                barbellCurl.TargetParts = new List<BodyPartExercise>
+                {
+                    new BodyPartExercise
+                    {
+                        BodyPart = bicep,
+                        Exercise = barbellCurl
+                    }
                 };
 
                 context.Exercises.Add(barbellCurl);
