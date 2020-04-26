@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Exercises from '../views/Exercises.vue';
+import BodyParts from '../views/BodyParts.vue';
 
 Vue.use(VueRouter)
 
@@ -16,6 +17,11 @@ Vue.use(VueRouter)
     path: '/exercises',
     name: 'Exercises',
     component: Exercises
+  },
+  {
+    path: '/bodyparts',
+    name: 'Bodyparts',
+    component: BodyParts
   }
 ]
 
