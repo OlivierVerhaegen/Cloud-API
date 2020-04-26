@@ -5,5 +5,9 @@
     <RootNamespace>Cloud_API</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 
 </Project>
