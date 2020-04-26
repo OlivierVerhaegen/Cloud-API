@@ -12,13 +12,18 @@ namespace Cloud_API.Models
         public int Id { get; set; }
 
         [Required]
+        [MaxLength(32, ErrorMessage = "Max. 32 characters for a name.")]
         public string Name { get; set; }
 
 
         public DateTime BirthDate { get; set; }
 
         [Required]
+        [EmailAddress]
         public string Email { get; set; }
+
+        [Range(0, 10)]
+        public int? NumberOfExercises { get; set; }
 
         public ICollection<Exercise> Exercises { get; set; }
 
