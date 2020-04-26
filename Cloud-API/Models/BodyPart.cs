@@ -22,5 +22,26 @@ namespace Cloud_API.Models
 
         [Url]
         public string ImageUrl { get; set; }
+
+        public void Update(BodyPart bp)
+        {
+            this.Name = bp.Name;
+            this.Location = bp.Location;
+            this.ImageUrl = bp.ImageUrl;
+
+            if (bp.Exercises != null && bp.Exercises.Any())
+            {
+                if (this.Exercises != null)
+                {
+                    foreach (BodyPartExercise bpe in bp.Exercises)
+                    {
+                        this.Exercises.Add(bpe);
+                    }
+                } else
+                {
+                    this.Exercises = bp.Exercises;
+                }
+            }
+        }
     }
 }
