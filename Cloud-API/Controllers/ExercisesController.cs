@@ -21,7 +21,8 @@ namespace Cloud_API.Controllers
         }
 
         // GET: api/v1/exercises
-        public ActionResult<IEnumerable<Exercise>> Get(string name, IEnumerable<string> targetParts, string sortBy, string direction, int page = 0, int limit = 10)
+        [HttpGet]
+        public ActionResult<IEnumerable<Exercise>> Get(string name, string sortBy, string direction, int page = 0, int limit = 10)
         {
             if (limit > 20)
                 return BadRequest("Limit must be smaller then 20");
