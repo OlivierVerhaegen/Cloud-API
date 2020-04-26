@@ -13,7 +13,7 @@ namespace Cloud_API.Models
         public string Name { get; set; }
 
         [Required]
-        public ICollection<BodyPart> TargetParts { get; set; }
+        public ICollection<BodyPartExercise> TargetParts { get; set; }
 
         [Required]
         public string Description { get; set; }

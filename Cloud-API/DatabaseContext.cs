@@ -15,5 +15,12 @@ namespace Cloud_API
         {
 
         }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<BodyPartExercise>().HasKey(bpe => new { bpe.BodyPartId, bpe.ExerciseId });
+        }
     }
 }

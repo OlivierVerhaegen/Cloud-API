@@ -45,7 +45,7 @@ namespace Cloud_API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DatabaseContext context)
         {
             if (env.IsDevelopment())
             {
@@ -62,6 +62,8 @@ namespace Cloud_API
             {
                 endpoints.MapControllers();
             });
+
+            DatabaseInitializer.Initialize(context);
         }
     }
 }

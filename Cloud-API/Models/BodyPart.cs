@@ -18,7 +18,7 @@ namespace Cloud_API.Models
         public string Location { get; set; }
 
         [Required]
-        public ICollection<Exercise> Exercises { get; set; }
+        public ICollection<BodyPartExercise> Exercises { get; set; }
 
         [Url]
         public string ImageUrl { get; set; }
