@@ -4,7 +4,8 @@
       <div>
         <router-link to="/">Home</router-link> |
         <router-link to="/exercises">Exercises</router-link> |
-        <router-link to="/bodyparts">Body parts</router-link> 
+        <router-link to="/bodyparts">Body parts</router-link> |
+        <router-link to="/myexercises">My exercises</router-link>
       </div>
       
     </nav>

@@ -74,6 +74,10 @@ export default {
 </script>
 
 <style lang="scss">
+.margin-bottom {
+  margin-bottom: 1rem;
+}
+
 .not-margin {
   margin: 0;
   font-weight: normal;
