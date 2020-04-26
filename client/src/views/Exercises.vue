@@ -8,22 +8,22 @@
     </div>
 
     <vs-dialog v-model="showDialog" :loading="loading">
-      
+      <div v-for="bp in dialogBodyParts" :key="bp.id" class="body-part">
+        <img style="max-width: 100px;" :src="bp.imageUrl" alt="">
+        <p><b>{{ bp.name }}</b></p>
+        <p>Location: {{ bp.location }}</p>
+      </div>
     </vs-dialog>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
-  name: 'Home',
-  components: {
-    HelloWorld
-  },
+  name: 'Exercises',
   data:() => ({
     exercises: [],
+    dialogBodyParts: [],
     showDialog: false,
     loading: true
   }),
@@ -42,7 +42,15 @@ export default {
       })
     },
     async showBodyParts(targetParts) {
-      
+      this.loading = true;
+      this.dialogBodyParts = [];
+      this.showDialog = true;
+      for (const tp of targetParts) {
+        let res = await fetch("https://" + window.location.hostname + ":44369/api/v1/bodyparts/" + tp.bodyPartId);
+        let bp = await res.json();
+        this.dialogBodyParts.push(bp);
+      };
+      this.loading = false;
     },
   },
   mounted() {
