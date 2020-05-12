@@ -5,6 +5,7 @@ import Login from '../views/Login.vue'
 import Exercises from '../views/Exercises.vue';
 import BodyParts from '../views/BodyParts.vue';
 import MyExercises from '../views/MyExercises.vue';
+import MyBodyParts from '../views/MyBodyParts.vue';
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,11 @@ Vue.use(VueRouter)
     path: '/myexercises',
     name: 'MyExercises',
     component: MyExercises
+  },
+  {
+    path: '/mybodyparts',
+    name: 'MyBodyParts',
+    component: MyBodyParts
   },
 ]
 

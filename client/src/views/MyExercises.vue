@@ -145,7 +145,6 @@ export default {
         },
         body: JSON.stringify({
           name: this.eName,
-          targetParts: this.eTargetParts,
           description: this.eDescription,
           videoUrl: this.eVideoUrl,
           targetParts: targetPartsIds
