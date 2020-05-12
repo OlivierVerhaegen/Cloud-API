@@ -31,7 +31,7 @@ namespace Cloud_API.Controllers
             IQueryable<Exercise> queryResult = context.Exercises.Include(e => e.TargetParts);
 
             if (!string.IsNullOrWhiteSpace(name))
-                queryResult = queryResult.Where(e => e.Name == name);
+                queryResult = queryResult.Where(e => e.Name.Contains(name));
 
             if (!string.IsNullOrWhiteSpace(sortBy))
             {
@@ -91,6 +91,7 @@ namespace Cloud_API.Controllers
 
             if (exerciseToUpdate == null)
                 return NotFound();
+
 
             exerciseToUpdate.Update(e);
             /* If the entry is being tracked, then invoking update API is not needed. 

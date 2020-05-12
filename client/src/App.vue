@@ -57,4 +57,8 @@ export default {
     }
   }
 }
+
+.vs-select__options {
+  z-index: 99999 !important;
+}
 </style>

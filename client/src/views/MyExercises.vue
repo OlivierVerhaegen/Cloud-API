@@ -164,7 +164,7 @@ export default {
           'Failed to add exercise',
           'Name, description are required and video url should be valid.');
       }
-    }
+    },
   },
   mounted() {
     this.getExercises();

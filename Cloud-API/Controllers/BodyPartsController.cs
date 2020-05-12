@@ -31,9 +31,9 @@ namespace Cloud_API.Controllers
             IQueryable<BodyPart> queryResult = context.BodyParts.Include(bp => bp.Exercises);
 
             if (!string.IsNullOrWhiteSpace(name))
-                queryResult = queryResult.Where(bp => bp.Name == name);
+                queryResult = queryResult.Where(bp => bp.Name.Contains(name));
             if (!string.IsNullOrWhiteSpace(location))
-                queryResult = queryResult.Where(bp => bp.Location == location);
+                queryResult = queryResult.Where(bp => bp.Location.Contains(location));
 
             if (!string.IsNullOrWhiteSpace(sortBy))
             {
