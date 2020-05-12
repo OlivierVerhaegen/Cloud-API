@@ -82,6 +82,15 @@ export default {
     ]),
   },
   methods: {
+    openNotification(position = null, color, title, message) {
+      const noti = this.$vs.notification({
+        progress: 'auto',
+        color,
+        position,
+        title: title,
+        text: message
+      })
+    },
     getExercises() {
       fetch(
         "https://" + window.location.hostname + ":44369/api/v1/users/" + 1,
@@ -90,7 +99,6 @@ export default {
       }).then((user) => {
         if (user != null) {
           this.user = user;
-          console.log(user)
         }
         if (user != null && user.exercises != null) {
           this.exercises = user.exercises;
@@ -118,6 +126,17 @@ export default {
       })
     },
     async addExercise() {
+      let targetPartsIds = [];
+      if (this.eTargetParts != null) {
+        this.eTargetParts.forEach(tp => {
+          targetPartsIds.push(
+            {
+              bodyPartId: tp.id
+            }
+          )
+        });
+      }
+      
       let res = await fetch("https://" + window.location.hostname + ":44369/api/v1/exercises",
       {
         method: 'POST',
@@ -128,11 +147,24 @@ export default {
           name: this.eName,
           targetParts: this.eTargetParts,
           description: this.eDescription,
-          videoUrl: this.eVideoUrl
+          videoUrl: this.eVideoUrl,
+          targetParts: targetPartsIds
         }),
       });
-
-      console.log(await res.json())
+      
+      if (res.ok) {
+        this.openNotification(
+          'top-right',
+          'success',
+          'Exercise added',
+          'The exercise was added to the database.');
+      } else {
+        this.openNotification(
+          'top-right',
+          'danger',
+          'Failed to add exercise',
+          'Name, description are required and video url should be valid.');
+      }
     }
   },
   mounted() {

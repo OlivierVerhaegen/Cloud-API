@@ -76,6 +76,7 @@ namespace Cloud_API.Controllers
         [HttpPost]
         public IActionResult Add([FromBody] Exercise e)
         {
+
             EntityEntry<Exercise> createdExercise = context.Exercises.Add(e);
             context.SaveChanges();
 

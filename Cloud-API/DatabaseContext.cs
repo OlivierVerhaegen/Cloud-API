@@ -23,6 +23,16 @@ namespace Cloud_API
             base.OnModelCreating(builder);
 
             builder.Entity<BodyPartExercise>().HasKey(bpe => new { bpe.BodyPartId, bpe.ExerciseId });
+
+            builder.Entity<BodyPartExercise>()
+                .HasOne(bpe => bpe.BodyPart)
+                .WithMany(bp => bp.Exercises)
+                .HasForeignKey(bpe => bpe.BodyPartId);
+
+            builder.Entity<BodyPartExercise>()
+                .HasOne(bpe => bpe.Exercise)
+                .WithMany(e => e.TargetParts)
+                .HasForeignKey(bpe => bpe.ExerciseId);
         }
     }
 }

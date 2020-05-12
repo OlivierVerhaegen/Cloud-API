@@ -5,7 +5,7 @@
         <router-link to="/">Home</router-link> |
         <router-link to="/exercises">Exercises</router-link> |
         <router-link to="/bodyparts">Body parts</router-link> |
-        <router-link to="/myexercises">Add exercises</router-link>
+        <router-link to="/myexercises">Add</router-link>
       </div>
       <p v-if="googleAccount != null" >Logged in as: {{ googleAccount.Pt.Ad }}</p>
     </nav>
