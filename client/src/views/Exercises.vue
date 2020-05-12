@@ -5,6 +5,7 @@
       <p id="description">{{ e.description }}</p>
       <a :href="e.videoUrl" target="_blank">Watch video</a>
       <vs-button @click="showBodyParts(e.targetParts)">Show affected body parts</vs-button>
+      <vs-button class="delete" @click="deleteExercise(e.id)">Delete</vs-button>
     </div>
 
     <vs-dialog v-model="showDialog" :loading="loading">
@@ -52,6 +53,14 @@ export default {
       };
       this.loading = false;
     },
+    async deleteExercise(id) {
+      let res = await fetch("https://" + window.location.hostname + ":44369/api/v1/exercises/" + id,
+      {
+        method: 'DELETE',
+      });
+      this.exercises = [];
+      this.getExercises();
+    }
   },
   mounted() {
     this.getExercises();
@@ -71,6 +80,10 @@ export default {
   .vs-button {
     margin: 0;
     margin-top: 1rem;
+  }
+
+  .delete {
+    background-color: red;
   }
 }
 </style>

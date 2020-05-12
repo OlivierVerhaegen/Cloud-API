@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cloud_API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Cloud_API.Controllers
@@ -27,7 +29,7 @@ namespace Cloud_API.Controllers
             if (limit > 20)
                 return BadRequest("Limit must be smaller then 20");
 
-            IQueryable<User> queryResult = context.Users;
+            IQueryable<User> queryResult = context.Users.Include(u => u.Exercises).Include(u => u.TartgetParts);
 
             if (!string.IsNullOrWhiteSpace(name))
                 queryResult = queryResult.Where(u => u.Name == name);

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -41,6 +42,13 @@ namespace Cloud_API
                        .AllowAnyHeader();
             }));
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.Authority = "https://accounts.google.com";
+                    options.Audience = "438795392975-jr28jkqv4iollb78ctsf2764if8aq4le.apps.googleusercontent.com";
+                });
+
             // De validatie zal gebeuren maar er wordt niet direct een error gegeven eerst wordt de action in de controller aangeroepen.
             // Nu moeten we wel zelf de modelstate checken in de controller.
             //services.Configure<ApiBehaviorOptions>(options =>
@@ -64,6 +72,8 @@ namespace Cloud_API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

@@ -5,6 +5,7 @@
       <p><b>{{ bp.name }}</b></p>
       <p>Location: {{ bp.location }}</p>
       <vs-button @click="showExercises(bp.exercises)">Show exercises</vs-button>
+      <vs-button class="delete" @click="deleteBodyPart(bp.id)">Delete</vs-button>
     </div>
 
     <vs-dialog v-model="showDialog" :loading="loading">
@@ -20,7 +21,7 @@
 <script>
 
 export default {
-  name: 'Exercises',
+  name: 'BodyParts',
   data:() => ({
     bodyparts: [],
     dialogExercises: [],
@@ -52,6 +53,14 @@ export default {
       };
       this.loading = false;
     },
+    async deleteBodyPart(id) {
+      let res = await fetch("https://" + window.location.hostname + ":44369/api/v1/bodyparts/" + id,
+      {
+        method: 'DELETE',
+      });
+      this.bodyparts = [];
+      this.getBodyParts();
+    }
   },
   mounted() {
     this.getBodyParts();
@@ -71,6 +80,10 @@ export default {
   .vs-button {
     margin: 0;
     margin-top: 1rem;
+  }
+
+  .delete {
+    background-color: red;
   }
 }
 </style>

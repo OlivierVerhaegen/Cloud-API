@@ -7,51 +7,9 @@
           </h4>
         </template>
 
+        <GoogleLogin :renderParams="renderParams" :params="params" :onSuccess="onSuccess" :onFailure="onFailure">Login</GoogleLogin>
 
-        <div class="con-form">
-          <vs-input v-if="register" v-model="name" placeholder="Name">
-            <template #icon>
-              <i class='bx bxs-user'></i>
-            </template>
-          </vs-input>
-          <vs-input v-model="email" placeholder="Email">
-            <template #icon>
-              <b>@</b>
-            </template>
-          </vs-input>
-          <vs-input type="password" v-model="password" placeholder="Password">
-            <template #icon>
-              <!-- <box-icon name="lock"></box-icon> -->
-              <i class='bx bxs-lock'></i>
-            </template>
-          </vs-input>
-          <vs-input v-if="register" type="password" v-model="passwordConfirm" placeholder="Confirm password">
-            <template #icon>
-              <!-- <box-icon name="lock"></box-icon> -->
-              <i class='bx bxs-lock'></i>
-            </template>
-          </vs-input>
-        </div>
-
-        <template #footer>
-          <div class="footer-dialog">
-            <vs-button block v-if="!register">
-              Sign In
-            </vs-button>
-
-            <vs-button block v-if="register">
-              Register
-            </vs-button>
-
-            <div v-if="!register" class="new">
-              New Here? <a href="#" @click="register = !register">Create New Account</a>
-            </div>
-
-            <div v-if="register" class="new">
-              Already have an account? <a href="#" @click="register = !register">Sign in</a>
-            </div>
-          </div>
-        </template>
+        
       </vs-dialog>
   </div>
 </template>
@@ -59,16 +17,39 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
+import GoogleLogin from 'vue-google-login';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'Login',
+  components: {
+    GoogleLogin
+  },
   data:() => ({
     showDialog: true,
-    email: '',
-    password: '',
-    register: false,
+    params: {
+      client_id: '438795392975-jr28jkqv4iollb78ctsf2764if8aq4le.apps.googleusercontent.com',
+    },
+    renderParams: {
+      width: 250,
+      height: 50,
+      longTitle: true
+    }
   }),
   mounted() {
+  },
+  methods: {
+    ...mapActions([
+      'login'
+    ]),
+    async onSuccess(googleUser) {
+      console.log(googleUser);
+      this.showDialog = false;
+      this.login(googleUser)
+    },
+    onFailure(err) {
+      console.log(err);
+    },
   }
 }
 </script>
@@ -84,67 +65,9 @@ export default {
   padding: 10px;
 }
 
-.con-form {
-  width: 100%;
-
-  .flex {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    a {
-      font-size: .8rem;
-      opacity: .7;
-      &:hover {
-        opacity: 1;
-      }
-    }
-  }
-
-  .vs-checkbox-label {
-    font-size: .8rem;
-  }
-
-  .vs-input-label {
-    margin: 10px 8px;
-    width: 100%;
-  }
-
-  .vs-input-content {
-    margin: 10px 0;
-    width: 100%;
-
-    .vs-input {
-      width: 100%;
-    }
-  }
-}
-
-.footer-dialog {
+.vs-dialog .vs-dialog__content {
   display: flex;
-  align-items: center;
   justify-content: center;
-  flex-direction: column;
-  width: 100%;
-
-  .new {
-    margin: 0;
-    margin-top: 20px;
-    padding: 0;
-    font-size: .7rem;
-
-    a {
-      color: --vs-primary !important;
-      margin-left: 6px;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
-
-  .vs-button {
-    margin: 0;
-  }
+  align-items: center;
 }
 </style>

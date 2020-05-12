@@ -26,22 +26,14 @@
         filter
         placeholder="Select body parts"
         v-model="eTargetParts"
+        v-if="bodyParts.length > 0"
       >
-        <vs-option label="Vuesax" value="1">
-          Vuesax
-        </vs-option>
-        <vs-option label="Vue" value="2">
-          Vue
-        </vs-option>
-        <vs-option label="Javascript" value="3">
-          Javascript
-        </vs-option>
-        <vs-option label="Sass" value="4">
-          Sass
+        <vs-option v-for="bp in bodyParts" :key="bp.id" :label="bp.name" :value="bp">
+          {{ bp.name }}
         </vs-option>
       </vs-select>
 
-      <vs-button style="margin: 0;" @click="showAddDialog = true">
+      <vs-button style="margin: 0;" @click="addExercise()">
         Add Exercise
       </vs-button>
     </div>
@@ -66,11 +58,13 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 
 export default {
   name: 'Exercises',
   data:() => ({
     exercises: [],
+    bodyParts: [],
     dialogBodyParts: [],
     showDialog: false,
     loading: true,
@@ -79,14 +73,25 @@ export default {
     eDescription: '',
     eVideoUrl: '',
     eTargetParts: [],
+    user: null,
   }),
+  computed: {
+    ...mapState([
+      'isLoggedIn',
+      'account'
+    ]),
+  },
   methods: {
     getExercises() {
       fetch(
-        "https://" + window.location.hostname + ":44369/api/v1/users/1",
+        "https://" + window.location.hostname + ":44369/api/v1/users/" + 1,
         ).then((res) => {
           return res.json()
       }).then((user) => {
+        if (user != null) {
+          this.user = user;
+          console.log(user)
+        }
         if (user != null && user.exercises != null) {
           this.exercises = user.exercises;
         }
@@ -103,9 +108,36 @@ export default {
       };
       this.loading = false;
     },
+    async getBodyParts() {
+      fetch(
+        "https://" + window.location.hostname + ":44369/api/v1/bodyparts",
+        ).then((res) => {
+          return res.json()
+      }).then((bparts) => {
+        this.bodyParts = bparts;
+      })
+    },
+    async addExercise() {
+      let res = await fetch("https://" + window.location.hostname + ":44369/api/v1/exercises",
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: this.eName,
+          targetParts: this.eTargetParts,
+          description: this.eDescription,
+          videoUrl: this.eVideoUrl
+        }),
+      });
+
+      console.log(await res.json())
+    }
   },
   mounted() {
     this.getExercises();
+    this.getBodyParts();
   }
 }
 </script>

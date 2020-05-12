@@ -5,13 +5,34 @@
         <router-link to="/">Home</router-link> |
         <router-link to="/exercises">Exercises</router-link> |
         <router-link to="/bodyparts">Body parts</router-link> |
-        <router-link to="/myexercises">My exercises</router-link>
+        <router-link to="/myexercises">Add exercises</router-link>
       </div>
-      
+      <p v-if="googleAccount != null" >Logged in as: {{ googleAccount.Pt.Ad }}</p>
     </nav>
     <router-view/>
   </div>
 </template>
+
+<script>
+import { mapState } from 'vuex';
+
+export default {
+  name: 'App',
+  data:() => ({
+
+  }),
+  computed: {
+    ...mapState([
+      'isLoggedIn',
+      'googleAccount'
+    ]),
+  },
+  mounted() {
+  },
+  methods: {
+  }
+}
+</script>
 
 <style lang="scss">
 #app {
