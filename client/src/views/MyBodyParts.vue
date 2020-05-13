@@ -24,7 +24,7 @@
         class="margin-bottom"
         multiple
         filter
-        placeholder="Select body parts"
+        placeholder="Select exercises"
         v-model="bpExercises"
         v-if="exercises.length > 0"
       >
