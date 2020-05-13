@@ -1,0 +1,13 @@
+---
+  - name: "Ansible local test"
+    hosts: all
+    tasks:
+
+    - name: "Create the production folder"
+      shell: "mkdir -p /home/lector/Cloud-API_Deployment/production"
+
+    - name: "Create a simple file in production"
+      shell: "touch /home/lector/Cloud-API_Deployment/production/production.html"
+
+    - name: "Add content to file"
+      copy: content="<h1>Production Server</h1>" dest="/home/lector/Cloud-API_Deployment/production/production.html"
