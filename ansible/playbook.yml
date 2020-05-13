@@ -28,8 +28,8 @@
       #   path: ../Cloud-API
       #   state: build
 
-    - name: Run the container
-      command: docker run --name ov-cloud-api --env ASPNETCORE_ENVIRONMENT=Development -p 80:8085 ov-cloud-api:latest
+    - name: Run the container or start if already exists
+      command: docker run --name ov-cloud-api --env ASPNETCORE_ENVIRONMENT=Development -p 80:8085 ov-cloud-api:latest || docker start ov-cloud-api
       # docker_container:
       #   image: ov-cloud-api:latest
       #   path: ../Cloud-API
