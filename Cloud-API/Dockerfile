@@ -12,6 +12,8 @@
 # COPY . .
 # RUN dotnet publish -c release -o /out --no-restore
 
+# Get de dotnet core sdk
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1
 # Get the .Net core runtime image.
 FROM mcr.microsoft.com/dotnet/core/runtime:3.1 AS runtime
 WORKDIR /Cloud-API
