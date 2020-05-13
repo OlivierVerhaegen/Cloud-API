@@ -1,6 +1,9 @@
 ---
   - name: "Ansible local test"
     hosts: all
+    remote_user: root
+    become: yes
+    become_method: sudo
     tasks:
 
     # - name: "Create the production folder"
@@ -29,6 +32,6 @@
         image: ov-cloud-api:latest
         path: ../Cloud-API
         state: running
-        
+
     - name: Check if the container is running
       shell: docker ps
