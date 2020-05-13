@@ -12,15 +12,23 @@
     # - name: "Add content to file"
     #   copy: content="<h1>Production Server</h1>" dest="/home/lector/Cloud-API_Deployment/production/production.html"
 
+    - name: Install pip
+      apt: name=python-pip state=present
+
+    - name: Install docker-py
+      pip: name=docker-py
+
     - name: Build docker image
       docker_image:
         name: ov-cloud-api
         path: ../Cloud-API
         state: build
+
     - name: Run the container
       docker_container:
         image: ov-cloud-api:latest
         path: ../Cloud-API
         state: running
+        
     - name: Check if the container is running
       shell: docker ps
