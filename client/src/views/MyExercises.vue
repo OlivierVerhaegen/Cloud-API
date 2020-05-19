@@ -92,8 +92,11 @@ export default {
       })
     },
     getExercises() {
+      const loading = this.$vs.loading({
+        text: 'Loading...'
+      });
       fetch(
-        "https://" + window.location.hostname + ":44369/api/v1/users/" + 1,
+        "https://cloud-api-276610.ew.r.appspot.com/api/v1/users/" + 1,
         ).then((res) => {
           return res.json()
       }).then((user) => {
@@ -103,6 +106,7 @@ export default {
         if (user != null && user.exercises != null) {
           this.exercises = user.exercises;
         }
+        loading.close();
       })
     },
     async showBodyParts(targetParts) {
@@ -110,7 +114,7 @@ export default {
       this.dialogBodyParts = [];
       this.showDialog = true;
       for (const tp of targetParts) {
-        let res = await fetch("https://" + window.location.hostname + ":44369/api/v1/bodyparts/" + tp.bodyPartId);
+        let res = await fetch("https://cloud-api-276610.ew.r.appspot.com/api/v1/bodyparts/" + tp.bodyPartId);
         let bp = await res.json();
         this.dialogBodyParts.push(bp);
       };
@@ -118,7 +122,7 @@ export default {
     },
     async getBodyParts() {
       fetch(
-        "https://" + window.location.hostname + ":44369/api/v1/bodyparts",
+        "https://cloud-api-276610.ew.r.appspot.com/api/v1/bodyparts",
         ).then((res) => {
           return res.json()
       }).then((bparts) => {
@@ -137,7 +141,7 @@ export default {
         });
       }
       
-      let res = await fetch("https://" + window.location.hostname + ":44369/api/v1/exercises",
+      let res = await fetch("https://cloud-api-276610.ew.r.appspot.com/api/v1/exercises",
       {
         method: 'POST',
         headers: {

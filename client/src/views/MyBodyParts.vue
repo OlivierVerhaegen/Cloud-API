@@ -75,7 +75,7 @@ export default {
         });
       }
       
-      let res = await fetch("https://" + window.location.hostname + ":44369/api/v1/bodyparts",
+      let res = await fetch("https://cloud-api-276610.ew.r.appspot.com/api/v1/bodyparts",
       {
         method: 'POST',
         headers: {
@@ -104,8 +104,11 @@ export default {
       }
     },
     getExercises() {
+      const loading = this.$vs.loading({
+        text: 'Loading...'
+      });
       fetch(
-        "https://" + window.location.hostname + ":44369/api/v1/exercises",
+        "https://cloud-api-276610.ew.r.appspot.com/api/v1/exercises",
         ).then((res) => {
           return res.json()
       }).then((data) => {
@@ -114,6 +117,7 @@ export default {
             this.exercises.push(e);
           });
         }
+        loading.close();
       })
     },
   },

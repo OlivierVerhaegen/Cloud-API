@@ -139,7 +139,7 @@ export default {
     },
     async getBodyParts() {
       fetch(
-        "https://" + window.location.hostname + ":44369/api/v1/bodyparts",
+        "https://cloud-api-276610.ew.r.appspot.com/api/v1/bodyparts",
         ).then((res) => {
           return res.json()
       }).then((bparts) => {
@@ -147,9 +147,12 @@ export default {
       })
     },
     getExercises() {
+      const loading = this.$vs.loading({
+        text: 'Loading...'
+      });
       this.exercises = [];
       fetch(
-        "https://" + window.location.hostname + `:44369/api/v1/exercises?page=${this.page-1}&limit=2`,
+        `https://cloud-api-276610.ew.r.appspot.com/api/v1/exercises?page=${this.page-1}&limit=2`,
         ).then((res) => {
           return res.json()
       }).then((data) => {
@@ -158,12 +161,13 @@ export default {
             this.exercises.push(e);
           });
         }
+        loading.close();
       })
     },
     getExercisesSearch() {
       this.exercises = [];
       fetch(
-        "https://" + window.location.hostname + `:44369/api/v1/exercises?name=${this.searchQuery}`,
+        `https://cloud-api-276610.ew.r.appspot.com/api/v1/exercises?name=${this.searchQuery}`,
         ).then((res) => {
           return res.json()
       }).then((data) => {
@@ -177,7 +181,7 @@ export default {
     getExercisesSort() {
       this.exercises = [];
       fetch(
-        "https://" + window.location.hostname + `:44369/api/v1/exercises?sortBy=${this.sortQuery}&direction=${this.directionQuery}&page=${this.page}&limit=2`,
+        `https://cloud-api-276610.ew.r.appspot.com/api/v1/exercises?sortBy=${this.sortQuery}&direction=${this.directionQuery}&page=${this.page}&limit=2`,
         ).then((res) => {
           return res.json()
       }).then((data) => {
@@ -193,7 +197,7 @@ export default {
       this.dialogBodyParts = [];
       this.showDialog = true;
       for (const tp of targetParts) {
-        let res = await fetch("https://" + window.location.hostname + ":44369/api/v1/bodyparts/" + tp.bodyPartId);
+        let res = await fetch("https://cloud-api-276610.ew.r.appspot.com/api/v1/bodyparts/" + tp.bodyPartId);
         let bp = await res.json();
         this.dialogBodyParts.push(bp);
       };
@@ -215,7 +219,7 @@ export default {
 
       // console.log(targetPartsIds)
       
-      let res = await fetch("https://" + window.location.hostname + `:44369/api/v1/exercises/${this.selectedExercise.id}`,
+      let res = await fetch(`https://cloud-api-276610.ew.r.appspot.com/api/v1/exercises/${this.selectedExercise.id}`,
       {
         method: 'PUT',
         headers: {
@@ -244,7 +248,7 @@ export default {
       }
     },
     async deleteExercise(id) {
-      let res = await fetch("https://" + window.location.hostname + ":44369/api/v1/exercises/" + id,
+      let res = await fetch("https://cloud-api-276610.ew.r.appspot.com/api/v1/exercises/" + id,
       {
         method: 'DELETE',
       });

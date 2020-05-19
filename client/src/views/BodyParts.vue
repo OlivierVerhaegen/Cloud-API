@@ -30,8 +30,11 @@ export default {
   }),
   methods: {
     getBodyParts() {
+      const loading = this.$vs.loading({
+        text: 'Loading...'
+      });
       fetch(
-        "https://" + window.location.hostname + ":44369/api/v1/bodyparts",
+        "https://cloud-api-276610.ew.r.appspot.com/api/v1/bodyparts",
         ).then((res) => {
           return res.json()
       }).then((data) => {
@@ -40,6 +43,7 @@ export default {
             this.bodyparts.push(e);
           });
         }
+        loading.close();
       })
     },
     async showExercises(exercises) {
@@ -47,14 +51,14 @@ export default {
       this.dialogExercises = [];
       this.showDialog = true;
       for (const tp of exercises) {
-        let res = await fetch("https://" + window.location.hostname + ":44369/api/v1/exercises/" + tp.exerciseId);
+        let res = await fetch("https://cloud-api-276610.ew.r.appspot.com/api/v1/exercises/" + tp.exerciseId);
         let bp = await res.json();
         this.dialogExercises.push(bp);
       };
       this.loading = false;
     },
     async deleteBodyPart(id) {
-      let res = await fetch("https://" + window.location.hostname + ":44369/api/v1/bodyparts/" + id,
+      let res = await fetch("https://cloud-api-276610.ew.r.appspot.com/api/v1/bodyparts/" + id,
       {
         method: 'DELETE',
       });
