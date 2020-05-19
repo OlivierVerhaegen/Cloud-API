@@ -32,7 +32,7 @@ namespace Cloud_API
             services.AddDbContext<DatabaseContext>(
                 options => options
                 .UseLoggerFactory(loggerFactory)
-                .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+                .UseMySQL(Configuration.GetConnectionString("DefaultConnection"))
             );
 
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
