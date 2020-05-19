@@ -6,9 +6,11 @@
         <router-link to="/exercises">Exercises</router-link> |
         <router-link to="/bodyparts">Body parts</router-link> |
         <router-link to="/myexercises">Add exercises</router-link> |
-        <router-link to="/mybodyparts">Add body parts</router-link>
+        <router-link to="/mybodyparts">Add body parts</router-link> |
+        <router-link to="/calories-finder">Calories finder</router-link>
       </div>
       <p v-if="googleAccount != null" >Logged in as: {{ googleAccount.Pt.Ad }}</p>
+
     </nav>
     <router-view/>
   </div>
@@ -20,7 +22,6 @@ import { mapState } from 'vuex';
 export default {
   name: 'App',
   data:() => ({
-
   }),
   computed: {
     ...mapState([

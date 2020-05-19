@@ -6,6 +6,7 @@ import Exercises from '../views/Exercises.vue';
 import BodyParts from '../views/BodyParts.vue';
 import MyExercises from '../views/MyExercises.vue';
 import MyBodyParts from '../views/MyBodyParts.vue';
+import CaloriesFinder from '../views/CaloriesFinder.vue';
 
 Vue.use(VueRouter)
 
@@ -35,6 +36,11 @@ Vue.use(VueRouter)
     name: 'MyBodyParts',
     component: MyBodyParts
   },
+  {
+    path: '/calories-finder',
+    name: 'Calories Finder',
+    component: CaloriesFinder
+  }
 ]
 
 const router = new VueRouter({
