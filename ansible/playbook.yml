@@ -22,8 +22,8 @@
     #   pip: name=docker-py
 
     - name: Build docker image
-      command: docker build -t ov-cloud-api -f /home/lector/jenkins/workspace/Cloud-API/Cloud-API/devops.Dockerfile /home/lector/jenkins/workspace/Cloud-API/Cloud-API/
-      # command: docker build -t ov-cloud-api /home/lector/jenkins/workspace/Cloud-API/Cloud-API
+      # command: docker build -t ov-cloud-api -f /home/lector/jenkins/workspace/Cloud-API/Cloud-API/devops.Dockerfile /home/lector/jenkins/workspace/Cloud-API/Cloud-API/
+      command: docker build -t ov-cloud-api /home/lector/jenkins/workspace/Cloud-API/Cloud-API
       # docker_image:
       #   name: ov-cloud-api
       #   path: ../Cloud-API
