@@ -6,20 +6,14 @@
     become_method: sudo
     tasks:
 
-    # - name: "Create the production folder"
-    #   shell: "mkdir -p /home/lector/Cloud-API_Deployment/production"
-
-    # - name: "Create a simple file in production"
-    #   shell: "touch /home/lector/Cloud-API_Deployment/production/production.html"
-
-    # - name: "Add content to file"
-    #   copy: content="<h1>Production Server</h1>" dest="/home/lector/Cloud-API_Deployment/production/production.html"
-
     # - name: Install pip
     #   apt: name=python-pip state=present
 
     # - name: Install docker-py
     #   pip: name=docker-py
+
+    - name: Remove docker ignore file
+      command: rm /home/lector/jenkins/workspace/Cloud-API/Cloud-API/.dockerignore
 
     - name: Build docker image
       command: docker build -f /home/lector/jenkins/workspace/Cloud-API/Cloud-API/devops.Dockerfile -t ov-cloud-api /home/lector/jenkins/workspace/Cloud-API/Cloud-API/
