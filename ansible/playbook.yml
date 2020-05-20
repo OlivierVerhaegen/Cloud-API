@@ -15,11 +15,11 @@
     - name: Remove docker ignore file
       file:
         state: absent
-        path: /home/lector/jenkins/workspace/Cloud-API/Cloud-API/.dockerignore
+        path: /home/lector/jenkins/workspace/Cloud-API-Development/Cloud-API/.dockerignore
       # command: rm /home/lector/jenkins/workspace/Cloud-API/Cloud-API/.dockerignore
 
     - name: Build docker image
-      command: docker build -f /home/lector/jenkins/workspace/Cloud-API/Cloud-API/devops.Dockerfile -t ov-cloud-api /home/lector/jenkins/workspace/Cloud-API/Cloud-API/
+      command: docker build -f /home/lector/jenkins/workspace/Cloud-API-Development/Cloud-API/devops.Dockerfile -t ov-cloud-api-dev /home/lector/jenkins/workspace/Cloud-API-Development/Cloud-API/
       # command: docker build -t ov-cloud-api /home/lector/jenkins/workspace/Cloud-API/Cloud-API
       # docker_image:
       #   name: ov-cloud-api
@@ -27,11 +27,11 @@
       #   state: build^
 
     - name: Remove any previous container
-      command: docker container rm -f ov-cloud-api
+      command: docker container rm -f ov-cloud-api-dev
       ignore_errors: yes
 
     - name: Create and run the container
-      command: docker run --name ov-cloud-api -d -p 8085:8080 ov-cloud-api:latest
+      command: docker run --name ov-cloud-api-dev -d -p 8085:8080 ov-cloud-api-dev:latest
       # docker_container:
       #   image: ov-cloud-api:latest
       #   path: ../Cloud-API
