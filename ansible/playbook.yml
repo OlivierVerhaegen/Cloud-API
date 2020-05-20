@@ -13,7 +13,10 @@
     #   pip: name=docker-py
 
     - name: Remove docker ignore file
-      command: rm /home/lector/jenkins/workspace/Cloud-API/Cloud-API/.dockerignore
+      file:
+        state: absent
+        path: /home/lector/jenkins/workspace/Cloud-API/Cloud-API/.dockerignore
+      # command: rm /home/lector/jenkins/workspace/Cloud-API/Cloud-API/.dockerignore
 
     - name: Build docker image
       command: docker build -f /home/lector/jenkins/workspace/Cloud-API/Cloud-API/devops.Dockerfile -t ov-cloud-api /home/lector/jenkins/workspace/Cloud-API/Cloud-API/
@@ -23,12 +26,12 @@
       #   path: ../Cloud-API
       #   state: build^
 
-    - name: Remove any previous image
+    - name: Remove any previous container
       command: docker container rm -f ov-cloud-api
       ignore_errors: yes
 
     - name: Create and run the container
-      command: docker run --name ov-cloud-api --env ASPNETCORE_ENVIRONMENT=Development -p 80:8085 ov-cloud-api:latest
+      command: docker run --name ov-cloud-api -d -p 80:8085 ov-cloud-api:latest
       # docker_container:
       #   image: ov-cloud-api:latest
       #   path: ../Cloud-API
