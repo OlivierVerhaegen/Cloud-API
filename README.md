@@ -3,4 +3,7 @@ Opdracht voor het vak Cloud API's This API will make it possible to search for e
 
 ## Get list of Exercises
 `GET /api/v1/exercises`
-    fetch
+
+```
+  HAllo
+```
