@@ -31,7 +31,7 @@
       ignore_errors: yes
 
     - name: Create and run the container
-      command: docker run --name ov-cloud-api-dev -d -p 8088:8080 ov-cloud-api-dev:latest
+      command: docker run --restart=always --name ov-cloud-api-dev -d -p 8088:8080 ov-cloud-api-dev:latest
       # docker_container:
       #   image: ov-cloud-api:latest
       #   path: ../Cloud-API
